@@ -1,8 +1,13 @@
 name: Build container release images
+# 비활성화됨: 포크 저장소에서는 원본 마스토돈의 Docker Hub/Container Registry에 푸시할 권한이 없음
+# on:
+#   push:
+#     tags:
+#       - '*'
 on:
   push:
     tags:
-      - '*'
+      - 'never-match-this-tag-*'  # 비활성화
 
 permissions:
   contents: read
@@ -10,6 +15,7 @@ permissions:
 
 jobs:
   build-image:
+    if: false  # 워크플로우 비활성화
     uses: ./.github/workflows/build-container-image.yml
     with:
       platforms: linux/amd64,linux/arm64

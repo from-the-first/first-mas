@@ -1,8 +1,9 @@
 name: Build nightly container image
+# 비활성화됨: 포크 저장소에서는 원본 마스토돈의 Docker Hub/Container Registry에 푸시할 권한이 없음
+# 이 워크플로우는 원본 마스토돈 저장소용이며, 포크에서는 실행되지 않습니다.
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 2 * * *' # run at 2 AM UTC
+    # 수동 실행도 비활성화 (항상 스킵됨)
 
 permissions:
   contents: read
@@ -11,6 +12,7 @@ permissions:
 jobs:
   compute-suffix:
     runs-on: ubuntu-latest
+    if: false  # 워크플로우 비활성화
     steps:
       - id: version_vars
         env:

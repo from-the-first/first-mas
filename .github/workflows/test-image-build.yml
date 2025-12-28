@@ -1,17 +1,23 @@
 name: Test container image build
+# 비활성화됨: 포크 저장소에서는 원본 마스토돈의 Container Registry에 푸시할 권한이 없음
+# on:
+#   pull_request:
+#     paths:
+#       - .github/workflows/build-nightly.yml
+#       - .github/workflows/build-push-pr.yml
+#       - .github/workflows/build-releases.yml
+#       - .github/workflows/test-image-build.yml
+#       - Dockerfile
 on:
   pull_request:
     paths:
-      - .github/workflows/build-nightly.yml
-      - .github/workflows/build-push-pr.yml
-      - .github/workflows/build-releases.yml
-      - .github/workflows/test-image-build.yml
-      - Dockerfile
+      - 'never-match-this-path'  # 비활성화
 permissions:
   contents: read
 
 jobs:
   build-image:
+    if: false  # 워크플로우 비활성화
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
