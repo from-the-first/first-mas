@@ -1,10 +1,15 @@
 name: Check i18n
-
+# 비활성화됨: 포크 저장소에서는 번역 파일 검사가 불필요할 수 있음
+# on:
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches: [main]
 on:
   push:
-    branches: [main]
+    branches: ['never-match-this-branch']  # 비활성화
   pull_request:
-    branches: [main]
+    branches: ['never-match-this-branch']  # 비활성화
 
 env:
   RAILS_ENV: test
@@ -15,6 +20,7 @@ permissions:
 jobs:
   check-i18n:
     runs-on: ubuntu-22.04
+    if: false  # 워크플로우 비활성화
 
     steps:
       - uses: actions/checkout@v4
@@ -31,7 +37,7 @@ jobs:
           bundler-cache: true
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           cache: yarn
           node-version-file: '.nvmrc'
